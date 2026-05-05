@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahan Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --dark: #0F1117;
+    --dark2: #181C27;
+    --dark3: #222840;
+    --white: #F5F2EC;
+    --muted: #9A9BA8;
+    --accent: #4A90B8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 3rem;
+    background: rgba(15,17,23,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 0.82rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 8rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(74,144,184,0.06) 0%, transparent 60%);
+  }
+  .hero-tag {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: 900px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--gold-light);
+  }
+  .hero-tag { justify-content: center; }
+  .hero-sub {
+    max-width: 100%; color: var(--muted); font-size: 1.25rem;
+    margin-bottom: 3rem; line-height: 1.9; text-align: center;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--gold); color: var(--dark);
+    padding: 1.1rem 2.6rem; border-radius: 4px;
+    font-size: 1rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid rgba(201,168,76,0.4); color: var(--gold);
+    padding: 1.1rem 2.6rem; border-radius: 4px;
+    font-size: 1rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.07); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 0 3rem;
+  }
+
+  /* SECTION */
+  section { padding: 6rem 3rem; text-align: center; }
+  .section-label {
+    font-size: 0.95rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 700; margin-bottom: 1.4rem;
+    line-height: 1.15;
+  }
+  .section-body { color: var(--muted); max-width: 100%; font-size: 1.2rem; line-height: 1.9; }
+
+  /* VERIFY SECTION */
+  #verify { background: var(--dark2); }
+  .verify-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 3rem;
+    max-width: 100%;
+  }
+  .verify-card {
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 8px; padding: 2.4rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.2s;
+    text-align: left;
+  }
+  .verify-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-2px); }
+  .verify-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .verify-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .verify-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    margin-bottom: 0.7rem; color: var(--white);
+  }
+  .verify-card p { color: var(--muted); font-size: 1.05rem; line-height: 1.8; }
+
+  /* PROCESS SECTION */
+  #process { background: var(--dark); }
+  .steps { display: flex; flex-direction: column; gap: 0; width: 100%; margin-top: 3rem; }
+  .step {
+    display: flex; gap: 2.5rem; align-items: flex-start;
+    padding: 2.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    text-align: left;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; font-weight: 900;
+    color: rgba(201,168,76,0.2); line-height: 1;
+    min-width: 4rem;
+  }
+  .step-content h3 {
+    font-weight: 500; font-size: 1.4rem;
+    margin-bottom: 0.6rem; color: var(--white);
+  }
+  .step-content p { color: var(--muted); font-size: 1.1rem; line-height: 1.85; }
+
+  /* ELIGIBILITY */
+  #eligibility { background: var(--dark2); }
+  .elig-box {
+    width: 100%; margin-top: 2.5rem;
+    background: var(--dark3);
+    border-left: 3px solid var(--gold);
+    padding: 2.5rem 3rem; border-radius: 0 8px 8px 0;
+    text-align: left;
+  }
+  .elig-box p { color: var(--muted); font-size: 1.1rem; margin-bottom: 1.2rem; line-height: 1.9; }
+  .elig-box p:last-child { margin-bottom: 0; }
+
+  /* FAQ */
+  #faq { background: var(--dark); }
+  .faq-list { width: 100%; margin-top: 2.5rem; text-align: left; }
+  .faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem 0;
+  }
+  .faq-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+  .faq-q {
+    font-weight: 500; font-size: 1.2rem; margin-bottom: 0.8rem;
+    color: var(--white); cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .faq-q span { color: var(--gold); font-size: 1.4rem; }
+  .faq-a { color: var(--muted); font-size: 1.05rem; line-height: 1.9; }
+
+  /* CONTACT */
+  #contact {
+    background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
+    position: relative; overflow: hidden;
+  }
+  #contact::before {
+    content: '';
+    position: absolute; top: -50%; right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; text-align: left; }
+  .contact-detail { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
+  .contact-item h4 {
+    font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.4rem;
+  }
+  .contact-item p, .contact-item a {
+    color: var(--white); font-size: 1.15rem; text-decoration: none;
+  }
+  .contact-item a:hover { color: var(--gold); }
+  .contact-cta { margin-top: 2rem; }
+  .contact-cta p { color: var(--muted); font-size: 1rem; margin-top: 1.5rem; }
+  .contact-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding: 2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { color: var(--muted); font-size: 0.95rem; }
+  .footer-note {
+    font-size: 0.9rem; color: rgba(201,168,76,0.6);
+    font-style: italic;
+  }
+
+  /* NOTICE BAR */
+  .notice {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 6px; padding: 1.3rem 1.8rem;
+    width: 100%; margin-top: 2.5rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    text-align: left;
+  }
+  .notice-icon { color: var(--gold); font-size: 1.3rem; flex-shrink: 0; }
+  .notice p { color: var(--muted); font-size: 1.05rem; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    section, .hero { padding: 4rem 1.5rem; }
+    .verify-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; text-align: center; }
+    .hero h1 { font-size: 2.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Sahan Foundation</div>
+  <div class="nav-links">
+    <a href="#verify">Verify Us</a>
+    <a href="#process">How It Works</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Financial Assistance Program</div>
+  <h1>Supporting Those Who <em>Qualify</em></h1>
+  <p class="hero-sub">Sahan Foundation reviews financial assistance applications on an individual basis. Approval and assistance amounts vary. We are committed to transparency and your comfort throughout the process.</p>
+  
+  <div class="notice" style="margin-top: 3rem;">
+    <div class="notice-icon">⚠</div>
+    <p>We will <strong style="color:var(--white)">never</strong> ask for gift cards, banking passwords, cash transfers, or login codes. If anyone claiming to be from Sahan Foundation requests this, it is not us.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VERIFY -->
+<section id="verify">
+  <div class="section-label">Trust & Safety</div>
+  <h2 class="section-title">Confirm You're Speaking<br>With Us</h2>
+  <p class="section-body">We take your safety seriously. Use these steps any time you want to confirm the identity of someone representing Sahan Foundation.</p>
+  <div class="verify-grid">
+    <div class="verify-card">
+      <div class="verify-icon">🚫</div>
+      <h3>We Don't Accept Unsafe Payments</h3>
+      <p>Sahan Foundation will never ask you to pay via gift cards, wire transfers, cash apps, or by sharing any account credentials.</p>
+    </div>
+    <div class="verify-card">
+      <div class="verify-icon">📞</div>
+      <h3>Call Us Back Directly</h3>
+      <p>Feel free to end any call and dial us back using the phone number listed on this website. We will always be reachable here.</p>
+    </div>
+    <div class="verify-card">
+      <div class="verify-icon">🕐</div>
+      <h3>Take All the Time You Need</h3>
+      <p>There is no urgency. We will never pressure you to make a decision on the spot. You are always free to pause or step away.</p>
+    </div>
+    <div class="verify-card">
+      <div class="verify-icon">🔒</div>
+      <h3>Independent Decisions Only</h3>
+      <p>Assistance approvals are made entirely on their own merit. We do not grant assistance in exchange for services, referrals, or partnerships.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-label">The Process</div>
+  <h2 class="section-title">How Financial Assistance Works</h2>
+  <p class="section-body">The process is straightforward and respectful of your time. Here is what to expect from start to finish.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <h3>Request a Review</h3>
+        <p>Reach out to us to begin a brief eligibility review. This is an initial step to determine whether you may qualify — no commitments required.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <h3>Eligibility Determination</h3>
+        <p>Your request is reviewed according to our program guidelines. Approval and assistance amounts are not guaranteed and vary by individual circumstance.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <h3>Assistance Decision</h3>
+        <p>If approved, the details of your assistance — including the amount and permitted use — will be communicated to you clearly and in advance before anything is finalized.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ELIGIBILITY -->
+<section id="eligibility">
+  <div class="section-label">Eligibility</div>
+  <h2 class="section-title">Who Can Apply</h2>
+  <p class="section-body">Financial assistance is available to individuals who meet our program criteria. Each case is reviewed individually.</p>
+  <div class="elig-box">
+    <p>Eligibility is assessed through a brief review and may differ based on your specific situation. Meeting certain criteria does not guarantee approval, and participating in public programs or other services does not affect your standing with us.</p>
+    <p>All applications are reviewed fairly and independently. We encourage anyone who believes they may qualify to reach out and request a review — there is no cost or obligation to do so.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-label">Common Questions</div>
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">What can the financial assistance be used for? <span>+</span></div>
+      <div class="faq-a">Permitted use of assistance depends on the program guidelines applicable to your case. If approved, this will be explained to you clearly before assistance is provided — nothing will come as a surprise.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is assistance tied to any provider or service? <span>+</span></div>
+      <div class="faq-a">No. All assistance decisions are made independently. We do not provide assistance in exchange for referrals, partnerships, or participation with any organization or individual.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is approval guaranteed? <span>+</span></div>
+      <div class="faq-a">No. Approval and assistance amounts vary by individual. We review each application according to our guidelines and will communicate our decision clearly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I confirm I'm really speaking with Sahan Foundation? <span>+</span></div>
+      <div class="faq-a">You can always hang up and call us back directly using the phone number listed on this website. We will also never ask for unsafe forms of payment — that is always a red flag.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Ready to Connect With Us?</h2>
+      <p class="section-body">If you have questions about the eligibility process, want to verify our identity, or are ready to request a review, we're here to help.</p>
+      <div class="contact-actions">
+        <a href="javascript:void(0)" onclick="document.getElementById('process').scrollIntoView({behavior:'smooth'})" class="btn-primary">See How It Works</a>
+        <a href="javascript:void(0)" onclick="document.getElementById('verify').scrollIntoView({behavior:'smooth'})" class="btn-outline">Verify Our Identity</a>
+      </div>
+      <p style="color:var(--muted); font-size:0.82rem; margin-top:1.5rem;">
+        ⚠ We will never ask for gift cards, passwords, or login codes.
+      </p>
+    </div>
+    <div>
+      <div class="contact-detail">
+        <div class="contact-item">
+          <h4>Office Address</h4>
+          <p>Available upon request.<br>By appointment only.</p>
+        </div>
+        <div class="contact-item">
+          <h4>Phone</h4>
+          <a href="tel:+16126821223">(612) 682-1223</a>
+        </div>
+        <div class="contact-item">
+          <h4>Email</h4>
+          <a href="mailto:info@sahanofoundation.org">info@sahanofoundation.org</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© Sahan Foundation. All rights reserved.</p>
+  <p class="footer-note">Assistance is not guaranteed. Approval and amounts vary.</p>
+</footer>
+
+</body>
+</html>
